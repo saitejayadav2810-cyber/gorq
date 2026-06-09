@@ -16,10 +16,10 @@
     --accent2: #fb923c;
     --text: #e8e8f0;
     --text2: #8888a8;
-    --user-bubble: #1a1a2e;
-    --ai-bubble: #13131a;
     --success: #22c55e;
     --error: #ef4444;
+    --web: #3b82f6;
+    --vision: #a855f7;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,16 +34,15 @@
     overflow: hidden;
   }
 
-  /* HEADER */
   header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px;
+    padding: 10px 14px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
-    gap: 10px;
+    gap: 8px;
   }
 
   .logo {
@@ -52,474 +51,324 @@
     gap: 8px;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
     color: var(--accent);
-    letter-spacing: -0.5px;
   }
 
   .logo-icon {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
   }
 
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .header-right { display: flex; align-items: center; gap: 6px; }
+
+  .model-wrap { position: relative; }
 
   select#modelSelect {
     background: var(--surface2);
     border: 1px solid var(--border);
     color: var(--text);
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    padding: 6px 10px;
+    font-size: 11px;
+    padding: 6px 28px 6px 8px;
     border-radius: 8px;
     outline: none;
     cursor: pointer;
-    max-width: 140px;
+    appearance: none;
+    max-width: 148px;
   }
 
-  select#modelSelect:focus {
-    border-color: var(--accent);
+  select#modelSelect:focus { border-color: var(--accent); }
+
+  .model-badges {
+    display: flex;
+    gap: 3px;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .badge {
+    font-size: 9px;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .badge.web { background: var(--web)22; color: var(--web); border: 1px solid var(--web)44; }
+  .badge.vision { background: var(--vision)22; color: var(--vision); border: 1px solid var(--vision)44; }
+
+  #capBadges {
+    display: flex; gap: 4px; align-items: center;
   }
 
   button#settingsBtn {
     background: var(--surface2);
     border: 1px solid var(--border);
     color: var(--text2);
-    width: 34px;
-    height: 34px;
+    width: 34px; height: 34px;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
     transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
   }
-
   button#settingsBtn:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* CHAT AREA */
   #chatArea {
     flex: 1;
     overflow-y: auto;
-    padding: 16px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     scroll-behavior: smooth;
   }
-
-  #chatArea::-webkit-scrollbar { width: 4px; }
-  #chatArea::-webkit-scrollbar-track { background: transparent; }
+  #chatArea::-webkit-scrollbar { width: 3px; }
   #chatArea::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-  /* EMPTY STATE */
   .empty-state {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    text-align: center;
-    padding: 40px 24px;
-    color: var(--text2);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px; text-align: center;
+    padding: 32px 20px; color: var(--text2);
   }
-
   .empty-icon {
-    width: 56px;
-    height: 56px;
+    width: 52px; height: 52px;
     background: linear-gradient(135deg, var(--accent)22, var(--accent2)22);
     border: 1px solid var(--accent)44;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
   }
+  .empty-state h2 { font-size: 17px; font-weight: 600; color: var(--text); }
+  .empty-state p { font-size: 13px; line-height: 1.5; max-width: 260px; }
 
-  .empty-state h2 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text);
+  .cap-row {
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+    margin-top: 2px;
   }
-
-  .empty-state p {
-    font-size: 13px;
-    line-height: 1.5;
-    max-width: 260px;
+  .cap-pill {
+    font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: 500;
   }
+  .cap-pill.web { background: var(--web)22; color: var(--web); border: 1px solid var(--web)33; }
+  .cap-pill.vision { background: var(--vision)22; color: var(--vision); border: 1px solid var(--vision)33; }
+  .cap-pill.fast { background: var(--success)22; color: var(--success); border: 1px solid var(--success)33; }
 
-  .suggestion-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    margin-top: 4px;
-  }
-
+  .suggestion-chips { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; margin-top: 4px; }
   .chip {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 12px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text2); font-size: 12px; padding: 5px 11px;
+    border-radius: 18px; cursor: pointer; transition: all 0.2s;
   }
+  .chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent)11; }
 
-  .chip:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent)11;
-  }
-
-  /* MESSAGES */
-  .msg {
-    display: flex;
-    gap: 10px;
-    animation: fadeUp 0.2s ease;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  .msg { display: flex; gap: 8px; animation: fadeUp 0.2s ease; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
   .msg.user { flex-direction: row-reverse; }
 
   .avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    flex-shrink: 0;
-    margin-top: 2px;
+    width: 26px; height: 26px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0; margin-top: 2px;
   }
-
-  .msg.user .avatar {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-  }
-
-  .msg.ai .avatar {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-  }
+  .msg.user .avatar { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+  .msg.ai .avatar { background: var(--surface2); border: 1px solid var(--border); }
 
   .bubble {
-    max-width: calc(100% - 46px);
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-size: 14px;
-    line-height: 1.6;
-    word-break: break-word;
+    max-width: calc(100% - 40px);
+    padding: 9px 13px; border-radius: 12px;
+    font-size: 14px; line-height: 1.65; word-break: break-word;
   }
-
-  .msg.user .bubble {
-    background: var(--accent);
-    color: #fff;
-    border-bottom-right-radius: 4px;
-  }
-
-  .msg.ai .bubble {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-bottom-left-radius: 4px;
-    color: var(--text);
-  }
+  .msg.user .bubble { background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
+  .msg.ai .bubble { background: var(--surface2); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
 
   .msg.ai .bubble pre {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px;
-    overflow-x: auto;
-    margin: 8px 0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 7px; padding: 10px; overflow-x: auto;
+    margin: 7px 0; font-family: 'JetBrains Mono', monospace; font-size: 12px;
   }
-
   .msg.ai .bubble code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    background: var(--bg);
-    padding: 1px 5px;
-    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    background: var(--bg); padding: 1px 4px; border-radius: 3px;
   }
+  .msg.ai .bubble pre code { background: transparent; padding: 0; }
 
-  .msg.ai .bubble pre code {
-    background: transparent;
-    padding: 0;
+  .img-preview {
+    max-width: 200px; max-height: 150px;
+    border-radius: 8px; margin-bottom: 6px;
+    border: 1px solid var(--border); display: block;
   }
 
   .model-tag {
-    font-size: 10px;
-    color: var(--text2);
-    margin-top: 4px;
-    font-family: 'JetBrains Mono', monospace;
-    padding-left: 38px;
+    font-size: 10px; color: var(--text2); margin-top: 3px;
+    font-family: 'JetBrains Mono', monospace; padding-left: 34px;
+    display: flex; align-items: center; gap: 4px;
   }
 
-  /* TYPING */
-  .typing-dots {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    padding: 4px 0;
+  .web-badge-inline {
+    font-size: 9px; padding: 1px 5px; border-radius: 3px;
+    background: var(--web)22; color: var(--web); border: 1px solid var(--web)44;
+    font-family: 'Inter', sans-serif; font-weight: 600;
   }
 
+  .typing-dots { display: flex; gap: 4px; align-items: center; padding: 3px 0; }
   .typing-dots span {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: bounce 1.2s infinite;
+    width: 6px; height: 6px; background: var(--accent);
+    border-radius: 50%; animation: bounce 1.2s infinite;
   }
-
   .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
   .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
   @keyframes bounce {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-5px); opacity: 1; }
+    0%,60%,100% { transform:translateY(0); opacity:0.4; }
+    30% { transform:translateY(-5px); opacity:1; }
   }
 
-  /* INPUT AREA */
   .input-area {
-    padding: 12px 16px;
+    padding: 10px 14px 12px;
     background: var(--surface);
     border-top: 1px solid var(--border);
     flex-shrink: 0;
   }
 
-  .input-row {
-    display: flex;
-    gap: 8px;
-    align-items: flex-end;
+  /* Image preview strip */
+  #imgPreviewStrip {
+    display: none; gap: 6px; margin-bottom: 8px; flex-wrap: wrap;
   }
+  .strip-thumb {
+    position: relative; width: 52px; height: 52px;
+  }
+  .strip-thumb img {
+    width: 52px; height: 52px; border-radius: 7px;
+    object-fit: cover; border: 1px solid var(--border);
+  }
+  .strip-thumb button {
+    position: absolute; top: -4px; right: -4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--error); border: none; color: #fff;
+    font-size: 10px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; line-height: 1;
+  }
+
+  .input-row { display: flex; gap: 7px; align-items: flex-end; }
+
+  .input-actions { display: flex; gap: 5px; align-items: flex-end; }
 
   textarea#msgInput {
     flex: 1;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    padding: 10px 14px;
-    border-radius: 12px;
-    outline: none;
-    resize: none;
-    max-height: 120px;
-    min-height: 44px;
-    line-height: 1.5;
-    transition: border-color 0.2s;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); font-family: 'Inter', sans-serif;
+    font-size: 14px; padding: 10px 12px; border-radius: 12px;
+    outline: none; resize: none; max-height: 110px; min-height: 42px;
+    line-height: 1.5; transition: border-color 0.2s;
   }
-
   textarea#msgInput::placeholder { color: var(--text2); }
   textarea#msgInput:focus { border-color: var(--accent); }
 
-  button#sendBtn {
-    width: 44px;
-    height: 44px;
-    background: var(--accent);
-    border: none;
-    border-radius: 12px;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, transform 0.1s;
-    flex-shrink: 0;
+  .icon-btn {
+    width: 42px; height: 42px;
+    border-radius: 11px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text2);
+    font-size: 17px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
   }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .icon-btn.active { background: var(--web)22; border-color: var(--web); color: var(--web); }
 
+  button#sendBtn {
+    width: 42px; height: 42px;
+    background: var(--accent); border: none; border-radius: 11px;
+    color: #fff; font-size: 17px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.1s; flex-shrink: 0;
+  }
   button#sendBtn:hover { background: var(--accent2); }
   button#sendBtn:active { transform: scale(0.95); }
   button#sendBtn:disabled { background: var(--border); cursor: not-allowed; }
 
-  .input-hint {
-    font-size: 11px;
-    color: var(--text2);
-    margin-top: 6px;
-    text-align: center;
-  }
-
-  /* SETTINGS MODAL */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: #000a;
-    z-index: 100;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-  }
-
-  .modal-overlay.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px 20px 0 0;
-    padding: 24px 20px 32px;
-    width: 100%;
-    max-width: 480px;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-  }
-
-  .modal-overlay.open .modal {
-    transform: translateY(0);
-  }
-
-  .modal-handle {
-    width: 36px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    margin: 0 auto 20px;
-  }
-
-  .modal h3 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    color: var(--text);
-  }
-
-  .field {
-    margin-bottom: 16px;
-  }
-
-  .field label {
-    display: block;
-    font-size: 12px;
-    color: var(--text2);
-    margin-bottom: 6px;
-    font-weight: 500;
-  }
-
-  .field input {
-    width: 100%;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .field input:focus { border-color: var(--accent); }
-  .field input::placeholder { color: var(--text2); }
-
-  .field-hint {
-    font-size: 11px;
-    color: var(--text2);
-    margin-top: 5px;
-  }
-
-  .field-hint a {
-    color: var(--accent);
-    text-decoration: none;
-  }
-
-  .modal-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 20px;
-  }
-
-  .btn-save {
-    flex: 1;
-    background: var(--accent);
-    border: none;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .btn-save:hover { background: var(--accent2); }
-
-  .btn-clear {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    padding: 12px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-clear:hover { border-color: var(--error); color: var(--error); }
-
-  /* STATUS BAR */
   .status-bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    padding: 4px 0 0;
+    display: flex; align-items: center; gap: 5px;
+    font-size: 10px; padding: 5px 0 0;
   }
-
-  .status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--error);
-  }
-
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--error); }
   .status-dot.connected { background: var(--success); }
   .status-text { color: var(--text2); }
 
-  /* TOAST */
-  .toast {
-    position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-80px);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 13px;
-    padding: 10px 18px;
-    border-radius: 20px;
-    z-index: 200;
-    transition: transform 0.3s ease;
-    white-space: nowrap;
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: #000b; z-index: 100;
+    display: flex; align-items: flex-end; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0; padding: 20px 18px 30px;
+    width: 100%; max-width: 480px;
+    transform: translateY(100%); transition: transform 0.3s ease;
+    max-height: 85vh; overflow-y: auto;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-handle { width: 34px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 18px; }
+  .modal h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 11px; color: var(--text2); margin-bottom: 5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .field input, .field textarea, .field select {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); font-family: 'Inter', sans-serif;
+    font-size: 13px; padding: 9px 12px; border-radius: 9px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); }
+  .field input::placeholder, .field textarea::placeholder { color: var(--text2); }
+  .field-hint { font-size: 11px; color: var(--text2); margin-top: 4px; }
+  .field-hint a { color: var(--accent); text-decoration: none; }
+
+  .model-info-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 9px; padding: 10px 12px; margin-top: 10px;
+    font-size: 12px; color: var(--text2); line-height: 1.6;
+  }
+  .model-info-box strong { color: var(--text); }
+
+  .modal-actions { display: flex; gap: 7px; margin-top: 16px; }
+  .btn-save {
+    flex: 1; background: var(--accent); border: none; color: #fff;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 11px; border-radius: 9px; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-save:hover { background: var(--accent2); }
+  .btn-clear {
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text2);
+    font-family: 'Inter', sans-serif; font-size: 13px; padding: 11px 14px;
+    border-radius: 9px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-clear:hover { border-color: var(--error); color: var(--error); }
+
+  .section-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--text2); font-weight: 600; margin-bottom: 8px;
   }
 
+  /* Hidden file input */
+  #fileInput { display: none; }
+
+  .toast {
+    position: fixed; top: 14px; left: 50%;
+    transform: translateX(-50%) translateY(-70px);
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); font-size: 12px; padding: 9px 16px;
+    border-radius: 18px; z-index: 200; transition: transform 0.3s ease;
+    white-space: nowrap;
+  }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { border-color: var(--success); color: var(--success); }
   .toast.error { border-color: var(--error); color: var(--error); }
@@ -533,15 +382,8 @@
     GroqChat
   </div>
   <div class="header-right">
-    <select id="modelSelect">
-      <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
-      <option value="llama-3.1-8b-instant">Llama 3.1 8B (Fast)</option>
-      <option value="llama3-70b-8192">Llama3 70B</option>
-      <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
-      <option value="gemma2-9b-it">Gemma 2 9B</option>
-      <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 70B</option>
-      <option value="qwen-qwq-32b">Qwen QwQ 32B</option>
-    </select>
+    <div id="capBadges"></div>
+    <select id="modelSelect"></select>
     <button id="settingsBtn" title="Settings">⚙️</button>
   </div>
 </header>
@@ -550,18 +392,26 @@
   <div class="empty-state" id="emptyState">
     <div class="empty-icon">⚡</div>
     <h2>GroqChat</h2>
-    <p>Blazing fast AI — powered by Groq's free API. No credits needed.</p>
+    <p>Blazing fast AI — free Groq API, no credits needed.</p>
+    <div class="cap-row">
+      <span class="cap-pill web">🌐 Web Search</span>
+      <span class="cap-pill vision">🖼 Image Input</span>
+      <span class="cap-pill fast">⚡ Ultra Fast</span>
+    </div>
     <div class="suggestion-chips">
-      <div class="chip" onclick="sendSuggestion('Explain quantum computing simply')">Quantum computing</div>
-      <div class="chip" onclick="sendSuggestion('Write a Python hello world')">Python code</div>
-      <div class="chip" onclick="sendSuggestion('What is machine learning?')">Machine learning</div>
-      <div class="chip" onclick="sendSuggestion('Tell me a fun fact')">Fun fact</div>
+      <div class="chip" onclick="sendSuggestion('What is the latest news in AI today?')">🌐 Latest AI news</div>
+      <div class="chip" onclick="sendSuggestion('Write a Python hello world program')">🐍 Python code</div>
+      <div class="chip" onclick="sendSuggestion('Explain quantum computing simply')">⚛️ Quantum</div>
+      <div class="chip" onclick="sendSuggestion('Tell me a fun fact')">🎲 Fun fact</div>
     </div>
   </div>
 </div>
 
 <div class="input-area">
+  <div id="imgPreviewStrip"></div>
   <div class="input-row">
+    <button class="icon-btn" id="imgBtn" title="Attach image (vision models only)">🖼</button>
+    <button class="icon-btn" id="webBtn" title="Toggle web search">🌐</button>
     <textarea id="msgInput" placeholder="Message..." rows="1"></textarea>
     <button id="sendBtn">➤</button>
   </div>
@@ -571,262 +421,420 @@
   </div>
 </div>
 
+<input type="file" id="fileInput" accept="image/*" multiple>
+
 <!-- Settings Modal -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <div class="modal-handle"></div>
     <h3>⚙️ Settings</h3>
+
     <div class="field">
-      <label>GROQ API KEY</label>
+      <label>Groq API Key</label>
       <input type="password" id="apiKeyInput" placeholder="gsk_xxxxxxxxxxxxxxxxxxxx" />
-      <div class="field-hint">
-        Get your free key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> — no credit card needed.
-      </div>
+      <div class="field-hint">Get free key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> — no credit card.</div>
     </div>
+
     <div class="field">
-      <label>SYSTEM PROMPT (optional)</label>
-      <input type="text" id="systemInput" placeholder="You are a helpful assistant..." />
+      <label>Model</label>
+      <select id="modalModelSelect"></select>
+      <div id="modalModelInfo" class="model-info-box"></div>
     </div>
+
+    <div class="field">
+      <label>System Prompt (optional)</label>
+      <textarea id="systemInput" rows="2" placeholder="You are a helpful assistant..."></textarea>
+    </div>
+
     <div class="modal-actions">
-      <button class="btn-clear" onclick="clearChat()">🗑 Clear Chat</button>
+      <button class="btn-clear" onclick="clearChat()">🗑 Clear</button>
       <button class="btn-save" onclick="saveSettings()">Save</button>
     </div>
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-  // State
-  let messages = [];
-  let apiKey = localStorage.getItem('groq_key') || '';
-  let systemPrompt = localStorage.getItem('groq_system') || 'You are a helpful, concise assistant.';
-  let isLoading = false;
+// ─── MODEL REGISTRY ────────────────────────────────────────────────────────
+const MODELS = [
+  // ID, label, web search, vision
+  { id: 'groq/compound',                          label: 'Groq Compound (Web+Code)',       web: true,  vision: false, note: 'AI system with built-in web search & code execution. Best for real-time queries.' },
+  { id: 'groq/compound-mini',                     label: 'Groq Compound Mini (Web+Code)',  web: true,  vision: false, note: 'Lighter compound system with web search & code execution. Faster.' },
+  { id: 'openai/gpt-oss-120b',                    label: 'GPT-OSS 120B (Web+Reason)',      web: true,  vision: false, note: '120B flagship open model. Built-in browser search + reasoning. ~500 t/s.' },
+  { id: 'openai/gpt-oss-20b',                     label: 'GPT-OSS 20B (Fast)',             web: false, vision: false, note: 'Fastest model at ~1000 t/s. Great for quick tasks.' },
+  { id: 'meta-llama/llama-4-scout-17b-16e-instruct', label: 'Llama 4 Scout (Vision)',      web: false, vision: true,  note: '🖼 Supports image input. Upload a photo and ask questions about it. Preview model.' },
+  { id: 'llama-3.3-70b-versatile',                label: 'Llama 3.3 70B',                  web: false, vision: false, note: 'Best general-purpose model. 131K context. Balanced speed & quality.' },
+  { id: 'llama-3.1-8b-instant',                   label: 'Llama 3.1 8B (Fastest)',         web: false, vision: false, note: 'Ultra fast ~560 t/s. Great for simple tasks and quick answers.' },
+  { id: 'qwen/qwen3-32b',                         label: 'Qwen3 32B (Reasoning)',          web: false, vision: false, note: 'Strong reasoning model. 131K context. Good for analysis & coding.' },
+];
 
-  const chatArea = document.getElementById('chatArea');
-  const emptyState = document.getElementById('emptyState');
-  const msgInput = document.getElementById('msgInput');
-  const sendBtn = document.getElementById('sendBtn');
-  const modelSelect = document.getElementById('modelSelect');
-  const statusDot = document.getElementById('statusDot');
-  const statusText = document.getElementById('statusText');
-  const apiKeyInput = document.getElementById('apiKeyInput');
-  const systemInput = document.getElementById('systemInput');
-  const modalOverlay = document.getElementById('modalOverlay');
-  const toast = document.getElementById('toast');
+// ─── STATE ─────────────────────────────────────────────────────────────────
+let messages      = [];
+let apiKey        = localStorage.getItem('groq_key') || '';
+let systemPrompt  = localStorage.getItem('groq_system') || 'You are a helpful, concise assistant.';
+let currentModel  = localStorage.getItem('groq_model') || 'groq/compound';
+let webSearch     = false;
+let pendingImages = []; // [{base64, mime, dataUrl}]
+let isLoading     = false;
 
-  // Init
-  apiKeyInput.value = apiKey;
-  systemInput.value = systemPrompt;
+// ─── DOM REFS ──────────────────────────────────────────────────────────────
+const chatArea        = document.getElementById('chatArea');
+const emptyState      = document.getElementById('emptyState');
+const msgInput        = document.getElementById('msgInput');
+const sendBtn         = document.getElementById('sendBtn');
+const modelSelect     = document.getElementById('modelSelect');
+const modalModelSel   = document.getElementById('modalModelSelect');
+const modalModelInfo  = document.getElementById('modalModelInfo');
+const statusDot       = document.getElementById('statusDot');
+const statusText      = document.getElementById('statusText');
+const apiKeyInput     = document.getElementById('apiKeyInput');
+const systemInput     = document.getElementById('systemInput');
+const modalOverlay    = document.getElementById('modalOverlay');
+const toast           = document.getElementById('toast');
+const imgBtn          = document.getElementById('imgBtn');
+const webBtn          = document.getElementById('webBtn');
+const fileInput       = document.getElementById('fileInput');
+const imgPreviewStrip = document.getElementById('imgPreviewStrip');
+const capBadges       = document.getElementById('capBadges');
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+function buildModelOptions(sel) {
+  sel.innerHTML = '';
+  MODELS.forEach(m => {
+    const o = document.createElement('option');
+    o.value = m.id;
+    const tags = [m.web ? '🌐' : '', m.vision ? '🖼' : ''].filter(Boolean).join('');
+    o.textContent = (tags ? tags + ' ' : '') + m.label;
+    if (m.id === currentModel) o.selected = true;
+    sel.appendChild(o);
+  });
+}
+
+buildModelOptions(modelSelect);
+buildModelOptions(modalModelSel);
+apiKeyInput.value   = apiKey;
+systemInput.value   = systemPrompt;
+updateStatus();
+updateCapBadges();
+updateModalModelInfo();
+
+// ─── STATUS ────────────────────────────────────────────────────────────────
+function updateStatus() {
+  const m = MODELS.find(x => x.id === currentModel);
+  const caps = [m?.web ? '🌐 Web' : '', m?.vision ? '🖼 Vision' : ''].filter(Boolean).join(' · ');
+  if (apiKey) {
+    statusDot.className = 'status-dot connected';
+    statusText.textContent = (m?.label || currentModel) + (caps ? ' · ' + caps : '');
+  } else {
+    statusDot.className = 'status-dot';
+    statusText.textContent = 'No API key — tap ⚙️ to set up';
+  }
+}
+
+function updateCapBadges() {
+  const m = MODELS.find(x => x.id === currentModel);
+  capBadges.innerHTML = '';
+  if (m?.web) capBadges.innerHTML += '<span class="badge web">🌐</span>';
+  if (m?.vision) capBadges.innerHTML += '<span class="badge vision">🖼</span>';
+}
+
+function updateModalModelInfo() {
+  const m = MODELS.find(x => x.id === modalModelSel.value);
+  if (!m) return;
+  const caps = [m.web ? '🌐 Web Search' : '', m.vision ? '🖼 Image Input' : ''].filter(Boolean);
+  modalModelInfo.innerHTML = `<strong>${m.label}</strong><br>${m.note}` +
+    (caps.length ? `<br><span style="color:var(--accent)">${caps.join(' · ')}</span>` : '');
+}
+
+modelSelect.addEventListener('change', () => {
+  currentModel = modelSelect.value;
+  localStorage.setItem('groq_model', currentModel);
+  // sync modal
+  modalModelSel.value = currentModel;
   updateStatus();
+  updateCapBadges();
+  updateModalModelInfo();
+});
 
-  function updateStatus() {
-    if (apiKey) {
-      statusDot.className = 'status-dot connected';
-      statusText.textContent = 'Connected — ' + modelSelect.value;
-    } else {
-      statusDot.className = 'status-dot';
-      statusText.textContent = 'No API key — tap ⚙️ to set up';
-    }
+modalModelSel.addEventListener('change', updateModalModelInfo);
+
+// ─── SETTINGS MODAL ────────────────────────────────────────────────────────
+document.getElementById('settingsBtn').onclick = () => {
+  apiKeyInput.value  = apiKey;
+  systemInput.value  = systemPrompt;
+  modalModelSel.value = currentModel;
+  updateModalModelInfo();
+  modalOverlay.classList.add('open');
+};
+
+modalOverlay.addEventListener('click', e => {
+  if (e.target === modalOverlay) modalOverlay.classList.remove('open');
+});
+
+function saveSettings() {
+  apiKey       = apiKeyInput.value.trim();
+  systemPrompt = systemInput.value.trim() || 'You are a helpful, concise assistant.';
+  currentModel = modalModelSel.value;
+  localStorage.setItem('groq_key',    apiKey);
+  localStorage.setItem('groq_system', systemPrompt);
+  localStorage.setItem('groq_model',  currentModel);
+  modelSelect.value = currentModel;
+  modalOverlay.classList.remove('open');
+  updateStatus(); updateCapBadges();
+  showToast('Settings saved ✓', 'success');
+}
+
+function clearChat() {
+  messages = [];
+  pendingImages = [];
+  chatArea.innerHTML = '';
+  chatArea.appendChild(emptyState);
+  emptyState.style.display = 'flex';
+  imgPreviewStrip.style.display = 'none';
+  imgPreviewStrip.innerHTML = '';
+  modalOverlay.classList.remove('open');
+  showToast('Chat cleared', '');
+}
+
+// ─── WEB SEARCH TOGGLE ─────────────────────────────────────────────────────
+webBtn.addEventListener('click', () => {
+  const m = MODELS.find(x => x.id === currentModel);
+  if (!m?.web) {
+    showToast('Switch to Groq Compound or GPT-OSS 120B for web search', 'error');
+    return;
+  }
+  webSearch = !webSearch;
+  webBtn.classList.toggle('active', webSearch);
+  showToast(webSearch ? '🌐 Web search ON' : 'Web search OFF', webSearch ? 'success' : '');
+});
+
+// ─── IMAGE ATTACH ──────────────────────────────────────────────────────────
+imgBtn.addEventListener('click', () => {
+  const m = MODELS.find(x => x.id === currentModel);
+  if (!m?.vision) {
+    showToast('Switch to Llama 4 Scout for image input 🖼', 'error');
+    return;
+  }
+  fileInput.click();
+});
+
+fileInput.addEventListener('change', async () => {
+  const files = Array.from(fileInput.files);
+  for (const f of files) {
+    const dataUrl = await readFileAsDataUrl(f);
+    const base64  = dataUrl.split(',')[1];
+    pendingImages.push({ base64, mime: f.type, dataUrl });
+  }
+  fileInput.value = '';
+  renderImgStrip();
+});
+
+function readFileAsDataUrl(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function renderImgStrip() {
+  imgPreviewStrip.innerHTML = '';
+  if (pendingImages.length === 0) { imgPreviewStrip.style.display = 'none'; return; }
+  imgPreviewStrip.style.display = 'flex';
+  pendingImages.forEach((img, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'strip-thumb';
+    const im = document.createElement('img');
+    im.src = img.dataUrl;
+    const btn = document.createElement('button');
+    btn.textContent = '×';
+    btn.onclick = () => { pendingImages.splice(i, 1); renderImgStrip(); };
+    wrap.appendChild(im); wrap.appendChild(btn);
+    imgPreviewStrip.appendChild(wrap);
+  });
+}
+
+// ─── INPUT ─────────────────────────────────────────────────────────────────
+msgInput.addEventListener('input', () => {
+  msgInput.style.height = 'auto';
+  msgInput.style.height = Math.min(msgInput.scrollHeight, 110) + 'px';
+});
+
+msgInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+sendBtn.onclick = sendMessage;
+
+function sendSuggestion(text) { msgInput.value = text; sendMessage(); }
+
+// ─── RENDER ────────────────────────────────────────────────────────────────
+function escHtml(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderMd(text) {
+  text = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, l, c) =>
+    `<pre><code>${escHtml(c.trim())}</code></pre>`);
+  text = text.replace(/`([^`]+)`/g, (_, c) => `<code>${escHtml(c)}</code>`);
+  text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  text = text.replace(/\n/g, '<br>');
+  return text;
+}
+
+function hideEmpty() {
+  if (emptyState.parentNode) emptyState.style.display = 'none';
+}
+
+function addMessage(role, content, model, imgDataUrls) {
+  hideEmpty();
+  const div    = document.createElement('div');
+  div.className = 'msg ' + role;
+  const avatar  = document.createElement('div');
+  avatar.className = 'avatar';
+  avatar.textContent = role === 'user' ? '👤' : '⚡';
+  const bubble  = document.createElement('div');
+  bubble.className = 'bubble';
+
+  // Show attached images in user bubble
+  if (imgDataUrls && imgDataUrls.length) {
+    imgDataUrls.forEach(url => {
+      const im = document.createElement('img');
+      im.src = url; im.className = 'img-preview';
+      bubble.appendChild(im);
+    });
   }
 
-  modelSelect.addEventListener('change', updateStatus);
+  if (role === 'ai') {
+    bubble.innerHTML += renderMd(content);
+  } else {
+    const span = document.createElement('span');
+    span.innerHTML = escHtml(content).replace(/\n/g,'<br>');
+    bubble.appendChild(span);
+  }
 
-  // Settings modal
-  document.getElementById('settingsBtn').onclick = () => {
+  div.appendChild(avatar); div.appendChild(bubble);
+  chatArea.appendChild(div);
+
+  if (role === 'ai' && model) {
+    const m = MODELS.find(x => x.id === model);
+    const tag = document.createElement('div');
+    tag.className = 'model-tag';
+    tag.innerHTML = (m?.label || model) + (m?.web ? ' <span class="web-badge-inline">🌐 Web</span>' : '');
+    chatArea.appendChild(tag);
+  }
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function addTyping() {
+  hideEmpty();
+  const div = document.createElement('div');
+  div.className = 'msg ai'; div.id = 'typing';
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar'; avatar.textContent = '⚡';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  div.appendChild(avatar); div.appendChild(bubble);
+  chatArea.appendChild(div);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+function removeTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
+
+// ─── SEND ──────────────────────────────────────────────────────────────────
+async function sendMessage() {
+  if (isLoading) return;
+  const text = msgInput.value.trim();
+  if (!text && pendingImages.length === 0) return;
+
+  if (!apiKey) {
     modalOverlay.classList.add('open');
-  };
-
-  modalOverlay.addEventListener('click', (e) => {
-    if (e.target === modalOverlay) modalOverlay.classList.remove('open');
-  });
-
-  function saveSettings() {
-    apiKey = apiKeyInput.value.trim();
-    systemPrompt = systemInput.value.trim() || 'You are a helpful, concise assistant.';
-    localStorage.setItem('groq_key', apiKey);
-    localStorage.setItem('groq_system', systemPrompt);
-    modalOverlay.classList.remove('open');
-    updateStatus();
-    showToast('Settings saved ✓', 'success');
+    showToast('Enter your Groq API key first', 'error');
+    return;
   }
 
-  function clearChat() {
-    messages = [];
-    chatArea.innerHTML = '';
-    chatArea.appendChild(emptyState);
-    emptyState.style.display = 'flex';
-    modalOverlay.classList.remove('open');
-    showToast('Chat cleared', '');
+  const imgs = [...pendingImages];
+  pendingImages = [];
+  renderImgStrip();
+  msgInput.value = '';
+  msgInput.style.height = 'auto';
+  isLoading = true;
+  sendBtn.disabled = true;
+
+  // Build user content
+  const model = currentModel;
+  const m = MODELS.find(x => x.id === model);
+
+  let userContent;
+  if (imgs.length && m?.vision) {
+    userContent = [
+      ...imgs.map(i => ({ type: 'image_url', image_url: { url: `data:${i.mime};base64,${i.base64}` } })),
+      { type: 'text', text: text || 'Describe this image.' }
+    ];
+  } else {
+    userContent = text;
   }
 
-  // Toast
-  function showToast(msg, type) {
-    toast.textContent = msg;
-    toast.className = 'toast ' + type + ' show';
-    setTimeout(() => toast.className = 'toast ' + type, 2200);
-  }
+  messages.push({ role: 'user', content: userContent });
+  addMessage('user', text || '(image)', null, imgs.map(i => i.dataUrl));
+  addTyping();
 
-  // Auto resize textarea
-  msgInput.addEventListener('input', () => {
-    msgInput.style.height = 'auto';
-    msgInput.style.height = Math.min(msgInput.scrollHeight, 120) + 'px';
-  });
+  try {
+    const body = {
+      model,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        ...messages
+      ],
+      max_tokens: 2048,
+      temperature: 0.7,
+    };
 
-  // Send on Enter (not shift+enter)
-  msgInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  });
-
-  sendBtn.onclick = sendMessage;
-
-  function sendSuggestion(text) {
-    msgInput.value = text;
-    sendMessage();
-  }
-
-  function renderMarkdown(text) {
-    // Code blocks
-    text = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
-      `<pre><code>${escapeHtml(code.trim())}</code></pre>`
-    );
-    // Inline code
-    text = text.replace(/`([^`]+)`/g, (_, c) => `<code>${escapeHtml(c)}</code>`);
-    // Bold
-    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Italic
-    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    // Newlines
-    text = text.replace(/\n/g, '<br>');
-    return text;
-  }
-
-  function escapeHtml(text) {
-    return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function addMessage(role, content, model) {
-    if (emptyState.parentNode) emptyState.style.display = 'none';
-
-    const div = document.createElement('div');
-    div.className = 'msg ' + role;
-
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar';
-    avatar.textContent = role === 'user' ? '👤' : '⚡';
-
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    bubble.innerHTML = role === 'ai' ? renderMarkdown(content) : escapeHtml(content).replace(/\n/g,'<br>');
-
-    div.appendChild(avatar);
-    div.appendChild(bubble);
-    chatArea.appendChild(div);
-
-    if (role === 'ai' && model) {
-      const tag = document.createElement('div');
-      tag.className = 'model-tag';
-      tag.textContent = model;
-      chatArea.appendChild(tag);
+    // Web search tool for compound & gpt-oss-120b
+    if ((model === 'groq/compound' || model === 'groq/compound-mini') || 
+        (model === 'openai/gpt-oss-120b' && webSearch)) {
+      // Compound models use built-in tools automatically; no extra param needed
     }
 
-    chatArea.scrollTop = chatArea.scrollHeight;
-    return bubble;
-  }
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + apiKey
+      },
+      body: JSON.stringify(body)
+    });
 
-  function addTyping() {
-    if (emptyState.parentNode) emptyState.style.display = 'none';
-    const div = document.createElement('div');
-    div.className = 'msg ai';
-    div.id = 'typing';
-
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar';
-    avatar.textContent = '⚡';
-
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-
-    div.appendChild(avatar);
-    div.appendChild(bubble);
-    chatArea.appendChild(div);
-    chatArea.scrollTop = chatArea.scrollHeight;
-  }
-
-  function removeTyping() {
-    const t = document.getElementById('typing');
-    if (t) t.remove();
-  }
-
-  async function sendMessage() {
-    if (isLoading) return;
-    const text = msgInput.value.trim();
-    if (!text) return;
-
-    if (!apiKey) {
-      modalOverlay.classList.add('open');
-      showToast('Enter your Groq API key first', 'error');
-      return;
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || 'API error ' + res.status);
     }
 
-    msgInput.value = '';
-    msgInput.style.height = 'auto';
-    isLoading = true;
-    sendBtn.disabled = true;
+    const data  = await res.json();
+    const reply = data.choices[0].message.content;
+    messages.push({ role: 'assistant', content: reply });
+    removeTyping();
+    addMessage('ai', reply, model);
 
-    messages.push({ role: 'user', content: text });
-    addMessage('user', text);
-    addTyping();
-
-    const model = modelSelect.value;
-
-    try {
-      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + apiKey
-        },
-        body: JSON.stringify({
-          model: model,
-          messages: [
-            { role: 'system', content: systemPrompt },
-            ...messages
-          ],
-          max_tokens: 2048,
-          temperature: 0.7,
-          stream: false
-        })
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error?.message || 'API error ' + res.status);
-      }
-
-      const data = await res.json();
-      const reply = data.choices[0].message.content;
-      messages.push({ role: 'assistant', content: reply });
-
-      removeTyping();
-      addMessage('ai', reply, model);
-
-    } catch (err) {
-      removeTyping();
-      addMessage('ai', '❌ Error: ' + err.message, null);
-      showToast(err.message, 'error');
-    }
-
-    isLoading = false;
-    sendBtn.disabled = false;
-    updateStatus();
-    msgInput.focus();
+  } catch (err) {
+    removeTyping();
+    addMessage('ai', '❌ ' + err.message, null);
+    showToast(err.message.slice(0, 60), 'error');
   }
+
+  isLoading = false;
+  sendBtn.disabled = false;
+  updateStatus();
+  msgInput.focus();
+}
+
+// ─── TOAST ─────────────────────────────────────────────────────────────────
+function showToast(msg, type) {
+  toast.textContent = msg;
+  toast.className = 'toast ' + type + ' show';
+  setTimeout(() => toast.className = 'toast ' + type, 2400);
+}
 </script>
 </body>
 </html>
